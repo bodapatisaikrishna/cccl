@@ -318,6 +318,7 @@ template <int _Width = 32, typename _Tp, typename _Up = ::cuda::std::remove_cv_t
   {
     using __unsigned_t _CCCL_NODEBUG = __shuffle_bitcast_storage_t<_Up>;
     const auto __value               = ::cuda::device::__shuffle_scalar_cast(__data);
+    // NOLINTNEXTLINE(readability-suspicious-call-argument)
     const auto __shuffled = ::cuda::ptx::shfl_sync_down(__value, __pred, __delta, __clamp_segmask, __lane_mask);
     const auto __narrowed = static_cast<__unsigned_t>(__shuffled);
     return warp_shuffle_result<_Up>{::cuda::std::bit_cast<_Up>(__narrowed), __pred};

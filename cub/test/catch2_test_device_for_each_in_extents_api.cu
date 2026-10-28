@@ -62,7 +62,7 @@ CUB_TEST("Device ForEachInExtents", "[ForEachInExtents][device]", CUB_SMALL)
   // d_output1 is now filled with the expected values
 
   thrust::fill(d_output2.begin(), d_output2.end(), data_t{});
-  cub::DeviceFor::ForEachInExtents(extents, linear_store_3D{d_output2_raw});
+  REQUIRE(cudaSuccess == cub::DeviceFor::ForEachInExtents(extents, linear_store_3D{d_output2_raw}));
   // d_output2 is now filled with the expected values
 
   // example-end for-each-in-extents-example

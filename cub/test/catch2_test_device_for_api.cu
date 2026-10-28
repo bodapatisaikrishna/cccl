@@ -82,7 +82,7 @@ CUB_TEST("Device bulk works with temporary storage", "[bulk][device]", CUB_SMALL
   // 1) Get temp storage size
   std::uint8_t* d_temp_storage{};
   std::size_t temp_storage_bytes{};
-  cub::DeviceFor::Bulk(d_temp_storage, temp_storage_bytes, vec.size(), op);
+  REQUIRE(cudaSuccess == cub::DeviceFor::Bulk(d_temp_storage, temp_storage_bytes, vec.size(), op));
 
   // 2) Allocate temp storage
   c2h::device_vector<std::uint8_t> temp_storage(temp_storage_bytes);

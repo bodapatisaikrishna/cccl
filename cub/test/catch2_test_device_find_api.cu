@@ -29,17 +29,20 @@ CUB_TEST("cub::DeviceFind::FindIf works with int data elements", "[find][device]
   const is_greater_than_t predicate{4};
 
   size_t temp_storage_bytes = 0;
-  cub::DeviceFind::FindIf(nullptr, temp_storage_bytes, d_in.begin(), d_out.begin(), predicate, num_items);
+  REQUIRE(cudaSuccess
+          == cub::DeviceFind::FindIf(nullptr, temp_storage_bytes, d_in.begin(), d_out.begin(), predicate, num_items));
 
   thrust::device_vector<char> temp_storage(temp_storage_bytes, thrust::no_init);
 
-  cub::DeviceFind::FindIf(
-    thrust::raw_pointer_cast(temp_storage.data()),
-    temp_storage_bytes,
-    d_in.begin(),
-    d_out.begin(),
-    predicate,
-    num_items);
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceFind::FindIf(
+      thrust::raw_pointer_cast(temp_storage.data()),
+      temp_storage_bytes,
+      d_in.begin(),
+      d_out.begin(),
+      predicate,
+      num_items));
 
   const int expected = 5;
   // example-end device-find-if
@@ -55,27 +58,31 @@ CUB_TEST("cub::DeviceFind::LowerBound works with int data elements", "[find][dev
   thrust::device_vector<int> d_output(4);
 
   size_t temp_storage_bytes = 0;
-  cub::DeviceFind::LowerBound(
-    nullptr,
-    temp_storage_bytes,
-    d_range.begin(),
-    static_cast<int>(d_range.size()),
-    d_values.begin(),
-    static_cast<int>(d_values.size()),
-    d_output.begin(),
-    cuda::std::less{});
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceFind::LowerBound(
+      nullptr,
+      temp_storage_bytes,
+      d_range.begin(),
+      static_cast<int>(d_range.size()),
+      d_values.begin(),
+      static_cast<int>(d_values.size()),
+      d_output.begin(),
+      cuda::std::less{}));
 
   thrust::device_vector<char> temp_storage(temp_storage_bytes, thrust::no_init);
 
-  cub::DeviceFind::LowerBound(
-    thrust::raw_pointer_cast(temp_storage.data()),
-    temp_storage_bytes,
-    d_range.begin(),
-    static_cast<int>(d_range.size()),
-    d_values.begin(),
-    static_cast<int>(d_values.size()),
-    d_output.begin(),
-    cuda::std::less{});
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceFind::LowerBound(
+      thrust::raw_pointer_cast(temp_storage.data()),
+      temp_storage_bytes,
+      d_range.begin(),
+      static_cast<int>(d_range.size()),
+      d_values.begin(),
+      static_cast<int>(d_values.size()),
+      d_output.begin(),
+      cuda::std::less{}));
 
   const thrust::device_vector<int> expected = {1, 2, 3, 4};
   // example-end device-lower-bound
@@ -91,27 +98,31 @@ CUB_TEST("cub::DeviceFind::UpperBound works with int data elements", "[find][dev
   thrust::device_vector<int> d_output(4);
 
   size_t temp_storage_bytes = 0;
-  cub::DeviceFind::UpperBound(
-    nullptr,
-    temp_storage_bytes,
-    d_range.begin(),
-    static_cast<int>(d_range.size()),
-    d_values.begin(),
-    static_cast<int>(d_values.size()),
-    d_output.begin(),
-    cuda::std::less{});
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceFind::UpperBound(
+      nullptr,
+      temp_storage_bytes,
+      d_range.begin(),
+      static_cast<int>(d_range.size()),
+      d_values.begin(),
+      static_cast<int>(d_values.size()),
+      d_output.begin(),
+      cuda::std::less{}));
 
   thrust::device_vector<char> temp_storage(temp_storage_bytes, thrust::no_init);
 
-  cub::DeviceFind::UpperBound(
-    thrust::raw_pointer_cast(temp_storage.data()),
-    temp_storage_bytes,
-    d_range.begin(),
-    static_cast<int>(d_range.size()),
-    d_values.begin(),
-    static_cast<int>(d_values.size()),
-    d_output.begin(),
-    cuda::std::less{});
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceFind::UpperBound(
+      thrust::raw_pointer_cast(temp_storage.data()),
+      temp_storage_bytes,
+      d_range.begin(),
+      static_cast<int>(d_range.size()),
+      d_values.begin(),
+      static_cast<int>(d_values.size()),
+      d_output.begin(),
+      cuda::std::less{}));
 
   const thrust::device_vector<int> expected = {1, 2, 3, 4};
   // example-end device-upper-bound

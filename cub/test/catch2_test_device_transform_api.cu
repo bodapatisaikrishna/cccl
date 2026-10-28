@@ -23,11 +23,12 @@ void test_transform_many_many_api()
 
   auto result1 = thrust::device_vector<double>(input1.size(), thrust::no_init);
   auto result2 = thrust::device_vector<bool>(input1.size(), thrust::no_init);
-  cub::DeviceTransform::Transform(
-    cuda::std::tuple{input1.begin(), input2.begin()},
-    cuda::std::tuple{result1.begin(), result2.begin()},
-    input1.size(),
-    op);
+  REQUIRE(cudaSuccess
+          == cub::DeviceTransform::Transform(
+            cuda::std::tuple{input1.begin(), input2.begin()},
+            cuda::std::tuple{result1.begin(), result2.begin()},
+            input1.size(),
+            op));
 
   const auto expected1 = thrust::host_vector<double>{0, -3.1, -2.2, -9, 12.8, -0};
   const auto expected2 = thrust::host_vector<bool>{false, true, true, true, false, false};
@@ -53,8 +54,9 @@ void test_transform_api()
   };
 
   auto result = thrust::device_vector<int>(input1.size(), thrust::no_init);
-  cub::DeviceTransform::Transform(
-    cuda::std::tuple{input1.begin(), input2.begin(), input3}, result.begin(), input1.size(), op);
+  REQUIRE(cudaSuccess
+          == cub::DeviceTransform::Transform(
+            cuda::std::tuple{input1.begin(), input2.begin(), input3}, result.begin(), input1.size(), op));
 
   const auto expected = thrust::host_vector<float>{520, 111, 397, 618};
   // example-end transform-many
@@ -78,7 +80,9 @@ void test_transform_if_api()
   };
 
   auto result = thrust::device_vector<int>(input.size()); // initialized to zeros
-  cub::DeviceTransform::TransformIf(cuda::std::tuple{input.begin()}, result.begin(), input.size(), predicate, op);
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceTransform::TransformIf(cuda::std::tuple{input.begin()}, result.begin(), input.size(), predicate, op));
 
   const auto expected = thrust::host_vector<float>{0, -2, 0, -6, 0, -10};
   // example-end transform-if
@@ -102,7 +106,7 @@ void test_transform_if_single_api()
   };
 
   auto result = thrust::device_vector<int>(input.size()); // initialized to zeros
-  cub::DeviceTransform::TransformIf(input.begin(), result.begin(), input.size(), predicate, op);
+  REQUIRE(cudaSuccess == cub::DeviceTransform::TransformIf(input.begin(), result.begin(), input.size(), predicate, op));
 
   const auto expected = thrust::host_vector<float>{0, -2, 0, -6, 0, -10};
   // example-end transform-if-single
@@ -130,8 +134,9 @@ void test_transform_stable_api()
   };
 
   auto result = thrust::device_vector<int>(input1.size(), thrust::no_init);
-  cub::DeviceTransform::TransformStableArgumentAddresses(
-    cuda::std::tuple{input1_ptr}, result.begin(), input1.size(), op);
+  REQUIRE(cudaSuccess
+          == cub::DeviceTransform::TransformStableArgumentAddresses(
+            cuda::std::tuple{input1_ptr}, result.begin(), input1.size(), op));
 
   const auto expected = thrust::host_vector<float>{52, 29, -6, 33};
   // example-end transform-many-stable

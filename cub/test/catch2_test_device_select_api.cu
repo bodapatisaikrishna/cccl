@@ -27,29 +27,33 @@ CUB_TEST("cub::DeviceSelect::FlaggedIf works with int data elements", "[select][
 
   // Determine temporary device storage requirements
   size_t temp_storage_bytes = 0;
-  cub::DeviceSelect::FlaggedIf(
-    nullptr,
-    temp_storage_bytes,
-    d_in.begin(),
-    d_flags.begin(),
-    d_out.begin(),
-    d_num_selected_out.data(),
-    num_items,
-    is_even);
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceSelect::FlaggedIf(
+      nullptr,
+      temp_storage_bytes,
+      d_in.begin(),
+      d_flags.begin(),
+      d_out.begin(),
+      d_num_selected_out.data(),
+      num_items,
+      is_even));
 
   // Allocate temporary storage
   c2h::device_vector<char> temp_storage(temp_storage_bytes);
 
   // Run selection
-  cub::DeviceSelect::FlaggedIf(
-    thrust::raw_pointer_cast(temp_storage.data()),
-    temp_storage_bytes,
-    d_in.begin(),
-    d_flags.begin(),
-    d_out.begin(),
-    d_num_selected_out.data(),
-    num_items,
-    is_even);
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceSelect::FlaggedIf(
+      thrust::raw_pointer_cast(temp_storage.data()),
+      temp_storage_bytes,
+      d_in.begin(),
+      d_flags.begin(),
+      d_out.begin(),
+      d_num_selected_out.data(),
+      num_items,
+      is_even));
 
   const c2h::device_vector<int> expected{0, 1, 5};
   // example-end segmented-select-flaggedif
@@ -70,21 +74,25 @@ CUB_TEST("cub::DeviceSelect::FlaggedIf in-place works with int data elements", "
 
   // Determine temporary device storage requirements
   size_t temp_storage_bytes = 0;
-  cub::DeviceSelect::FlaggedIf(
-    nullptr, temp_storage_bytes, d_data.begin(), d_flags.begin(), d_num_selected_out.data(), num_items, is_even);
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceSelect::FlaggedIf(
+      nullptr, temp_storage_bytes, d_data.begin(), d_flags.begin(), d_num_selected_out.data(), num_items, is_even));
 
   // Allocate temporary storage
   c2h::device_vector<char> temp_storage(temp_storage_bytes);
 
   // Run selection
-  cub::DeviceSelect::FlaggedIf(
-    thrust::raw_pointer_cast(temp_storage.data()),
-    temp_storage_bytes,
-    d_data.begin(),
-    d_flags.begin(),
-    d_num_selected_out.data(),
-    num_items,
-    is_even);
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceSelect::FlaggedIf(
+      thrust::raw_pointer_cast(temp_storage.data()),
+      temp_storage_bytes,
+      d_data.begin(),
+      d_flags.begin(),
+      d_num_selected_out.data(),
+      num_items,
+      is_even));
 
   const c2h::device_vector<int> expected{0, 1, 5};
   // example-end segmented-select-flaggedif-inplace
@@ -103,18 +111,21 @@ CUB_TEST("cub::DeviceSelect::Unique in-place works with int data elements", "[se
 
   // Determine temporary device storage requirements
   size_t temp_storage_bytes = 0;
-  cub::DeviceSelect::Unique(nullptr, temp_storage_bytes, d_data.begin(), d_num_selected_out.begin(), num_items);
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceSelect::Unique(nullptr, temp_storage_bytes, d_data.begin(), d_num_selected_out.begin(), num_items));
 
   // Allocate temporary storage
   thrust::device_vector<char> temp_storage(temp_storage_bytes, thrust::no_init);
 
   // Run selection
-  cub::DeviceSelect::Unique(
-    thrust::raw_pointer_cast(temp_storage.data()),
-    temp_storage_bytes,
-    d_data.begin(),
-    d_num_selected_out.begin(),
-    num_items);
+  REQUIRE(cudaSuccess
+          == cub::DeviceSelect::Unique(
+            thrust::raw_pointer_cast(temp_storage.data()),
+            temp_storage_bytes,
+            d_data.begin(),
+            d_num_selected_out.begin(),
+            num_items));
 
   // Resize input to new length
   d_data.resize(d_num_selected_out[0]);
@@ -148,20 +159,23 @@ CUB_TEST("cub::DeviceSelect::Unique in-place with equality_op works with int dat
 
   // Determine temporary device storage requirements
   size_t temp_storage_bytes = 0;
-  cub::DeviceSelect::Unique(
-    nullptr, temp_storage_bytes, d_data.begin(), d_num_selected_out.begin(), num_items, equality_op);
+  REQUIRE(cudaSuccess
+          == cub::DeviceSelect::Unique(
+            nullptr, temp_storage_bytes, d_data.begin(), d_num_selected_out.begin(), num_items, equality_op));
 
   // Allocate temporary storage
   thrust::device_vector<char> temp_storage(temp_storage_bytes, thrust::no_init);
 
   // Run selection
-  cub::DeviceSelect::Unique(
-    thrust::raw_pointer_cast(temp_storage.data()),
-    temp_storage_bytes,
-    d_data.begin(),
-    d_num_selected_out.begin(),
-    num_items,
-    equality_op);
+  REQUIRE(
+    cudaSuccess
+    == cub::DeviceSelect::Unique(
+      thrust::raw_pointer_cast(temp_storage.data()),
+      temp_storage_bytes,
+      d_data.begin(),
+      d_num_selected_out.begin(),
+      num_items,
+      equality_op));
 
   // Resize input to new length
   d_data.resize(d_num_selected_out[0]);

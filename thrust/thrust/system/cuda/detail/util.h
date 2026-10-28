@@ -167,9 +167,9 @@ _CCCL_HOST_DEVICE inline void throw_on_error(cudaError_t status)
   // Clear the global CUDA error state which may have been set by the last
   // call. Otherwise, errors may "leak" to unrelated kernel launches.
 #ifdef THRUST_RDC_ENABLED
-  cudaGetLastError();
+  static_cast<void>(cudaGetLastError());
 #else
-  NV_IF_TARGET(NV_IS_HOST, (cudaGetLastError();));
+  NV_IF_TARGET(NV_IS_HOST, (static_cast<void>(cudaGetLastError());));
 #endif
 
   if (cudaSuccess != status)
@@ -205,9 +205,9 @@ _CCCL_HOST_DEVICE inline void throw_on_error(cudaError_t status, char const* msg
   // Clear the global CUDA error state which may have been set by the last
   // call. Otherwise, errors may "leak" to unrelated kernel launches.
 #ifdef THRUST_RDC_ENABLED
-  cudaGetLastError();
+  static_cast<void>(cudaGetLastError());
 #else
-  NV_IF_TARGET(NV_IS_HOST, (cudaGetLastError();));
+  NV_IF_TARGET(NV_IS_HOST, (static_cast<void>(cudaGetLastError());));
 #endif
 
   if (cudaSuccess != status)

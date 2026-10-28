@@ -273,7 +273,7 @@ public:
           // Clear the global CUDA error state which may have been
           // set by the last call. Otherwise, errors may "leak" to
           // unrelated kernel launches.
-          cudaGetLastError();
+          static_cast<void>(cudaGetLastError());
         }
 
         // Release the lock by setting the state to `DeviceEntryReady`.

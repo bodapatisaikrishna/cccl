@@ -90,7 +90,7 @@ private:
       __k1 *= __c2;
       __h1 ^= __k1;
       __h1 = ::cuda::std::rotl(__h1, 13);
-      __h1 = __h1 * 5 + 0xe6546b64;
+      __h1 = (__h1 * 5) + 0xe6546b64;
     }
   };
 
@@ -184,7 +184,7 @@ private:
       __k1 *= __c2;
       __h1 ^= __k1;
       __h1 = ::cuda::std::rotl(__h1, 13);
-      __h1 = __h1 * 5 + 0xe6546b64;
+      __h1 = (__h1 * 5) + 0xe6546b64;
     }
     //----------
     // tail
@@ -246,7 +246,7 @@ private:
 
       __h[0] = ::cuda::std::rotl(__h[0], 19);
       __h[0] += __h[1];
-      __h[0] = __h[0] * 5 + 0x561ccd1b;
+      __h[0] = (__h[0] * 5) + 0x561ccd1b;
 
       __k2 *= __c2;
       __k2 = ::cuda::std::rotl(__k2, 16);
@@ -255,7 +255,7 @@ private:
 
       __h[1] = ::cuda::std::rotl(__h[1], 17);
       __h[1] += __h[2];
-      __h[1] = __h[1] * 5 + 0x0bcaa747;
+      __h[1] = (__h[1] * 5) + 0x0bcaa747;
 
       __k3 *= __c3;
       __k3 = ::cuda::std::rotl(__k3, 17);
@@ -264,7 +264,7 @@ private:
 
       __h[2] = ::cuda::std::rotl(__h[2], 15);
       __h[2] += __h[3];
-      __h[2] = __h[2] * 5 + 0x96cd1c35;
+      __h[2] = (__h[2] * 5) + 0x96cd1c35;
 
       __k4 *= __c4;
       __k4 = ::cuda::std::rotl(__k4, 18);
@@ -273,7 +273,7 @@ private:
 
       __h[3] = ::cuda::std::rotl(__h[3], 13);
       __h[3] += __h[0];
-      __h[3] = __h[3] * 5 + 0x32ac3b17;
+      __h[3] = (__h[3] * 5) + 0x32ac3b17;
     }
   };
 
@@ -433,9 +433,9 @@ private:
     for (::cuda::std::size_t __i = 0; __size >= __chunk_size && __i < __nchunks; ++__i)
     {
       ::cuda::std::uint32_t __k1 = ::cuda::__load_chunk<::cuda::std::uint32_t>(__bytes, 4 * __i);
-      ::cuda::std::uint32_t __k2 = ::cuda::__load_chunk<::cuda::std::uint32_t>(__bytes, 4 * __i + 1);
-      ::cuda::std::uint32_t __k3 = ::cuda::__load_chunk<::cuda::std::uint32_t>(__bytes, 4 * __i + 2);
-      ::cuda::std::uint32_t __k4 = ::cuda::__load_chunk<::cuda::std::uint32_t>(__bytes, 4 * __i + 3);
+      ::cuda::std::uint32_t __k2 = ::cuda::__load_chunk<::cuda::std::uint32_t>(__bytes, (4 * __i) + 1);
+      ::cuda::std::uint32_t __k3 = ::cuda::__load_chunk<::cuda::std::uint32_t>(__bytes, (4 * __i) + 2);
+      ::cuda::std::uint32_t __k4 = ::cuda::__load_chunk<::cuda::std::uint32_t>(__bytes, (4 * __i) + 3);
 
       __k1 *= __c1;
       __k1 = ::cuda::std::rotl(__k1, 15);
@@ -444,7 +444,7 @@ private:
 
       __h[0] = ::cuda::std::rotl(__h[0], 19);
       __h[0] += __h[1];
-      __h[0] = __h[0] * 5 + 0x561ccd1b;
+      __h[0] = (__h[0] * 5) + 0x561ccd1b;
 
       __k2 *= __c2;
       __k2 = ::cuda::std::rotl(__k2, 16);
@@ -453,7 +453,7 @@ private:
 
       __h[1] = ::cuda::std::rotl(__h[1], 17);
       __h[1] += __h[2];
-      __h[1] = __h[1] * 5 + 0x0bcaa747;
+      __h[1] = (__h[1] * 5) + 0x0bcaa747;
 
       __k3 *= __c3;
       __k3 = ::cuda::std::rotl(__k3, 17);
@@ -462,7 +462,7 @@ private:
 
       __h[2] = ::cuda::std::rotl(__h[2], 15);
       __h[2] += __h[3];
-      __h[2] = __h[2] * 5 + 0x96cd1c35;
+      __h[2] = (__h[2] * 5) + 0x96cd1c35;
 
       __k4 *= __c4;
       __k4 = ::cuda::std::rotl(__k4, 18);
@@ -471,7 +471,7 @@ private:
 
       __h[3] = ::cuda::std::rotl(__h[3], 13);
       __h[3] += __h[0];
-      __h[3] = __h[3] * 5 + 0x32ac3b17;
+      __h[3] = (__h[3] * 5) + 0x32ac3b17;
     }
 
     // tail
@@ -607,7 +607,7 @@ private:
 
       __h[0] = ::cuda::std::rotl(__h[0], 27);
       __h[0] += __h[1];
-      __h[0] = __h[0] * 5 + 0x52dce729;
+      __h[0] = (__h[0] * 5) + 0x52dce729;
 
       __k2 *= __c2;
       __k2 = ::cuda::std::rotl(__k2, 33);
@@ -616,7 +616,7 @@ private:
 
       __h[1] = ::cuda::std::rotl(__h[1], 31);
       __h[1] += __h[0];
-      __h[1] = __h[1] * 5 + 0x38495ab5;
+      __h[1] = (__h[1] * 5) + 0x38495ab5;
     }
   };
 
@@ -751,7 +751,7 @@ private:
     for (::cuda::std::size_t __i = 0; __size >= __chunk_size && __i < __nchunks; ++__i)
     {
       ::cuda::std::uint64_t __k1 = ::cuda::__load_chunk<::cuda::std::uint64_t>(__bytes, 2 * __i);
-      ::cuda::std::uint64_t __k2 = ::cuda::__load_chunk<::cuda::std::uint64_t>(__bytes, 2 * __i + 1);
+      ::cuda::std::uint64_t __k2 = ::cuda::__load_chunk<::cuda::std::uint64_t>(__bytes, (2 * __i) + 1);
 
       __k1 *= __c1;
       __k1 = ::cuda::std::rotl(__k1, 31);
@@ -760,7 +760,7 @@ private:
       __h[0] ^= __k1;
       __h[0] = ::cuda::std::rotl(__h[0], 27);
       __h[0] += __h[1];
-      __h[0] = __h[0] * 5 + 0x52dce729;
+      __h[0] = (__h[0] * 5) + 0x52dce729;
 
       __k2 *= __c2;
       __k2 = ::cuda::std::rotl(__k2, 33);
@@ -769,7 +769,7 @@ private:
       __h[1] ^= __k2;
       __h[1] = ::cuda::std::rotl(__h[1], 31);
       __h[1] += __h[0];
-      __h[1] = __h[1] * 5 + 0x38495ab5;
+      __h[1] = (__h[1] * 5) + 0x38495ab5;
     }
 
     // tail

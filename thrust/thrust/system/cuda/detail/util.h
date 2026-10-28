@@ -125,7 +125,7 @@ _CCCL_FORCEINLINE cudaError_t trivial_copy_from_device(Type* dst, Type const* sr
   }
 
   status = ::cudaMemcpyAsync(dst, src, sizeof(Type) * count, cudaMemcpyDefault, stream);
-  cudaStreamSynchronize(stream);
+  static_cast<void>(cudaStreamSynchronize(stream));
   return status;
 }
 
@@ -140,7 +140,7 @@ trivial_copy_to_device(Type* dst, Type const* src, size_t count, cudaStream_t st
   }
 
   status = ::cudaMemcpyAsync(dst, src, sizeof(Type) * count, cudaMemcpyDefault, stream);
-  cudaStreamSynchronize(stream);
+  static_cast<void>(cudaStreamSynchronize(stream));
   return status;
 }
 

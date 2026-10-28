@@ -97,10 +97,10 @@ public:
       : target_device_(target_device)
       , original_device_(target_device)
   {
-    CubDebug(cudaGetDevice(&original_device_));
+    static_cast<void>(CubDebug(cudaGetDevice(&original_device_)));
     if (original_device_ != target_device_)
     {
-      CubDebug(cudaSetDevice(target_device_));
+      static_cast<void>(CubDebug(cudaSetDevice(target_device_)));
     }
   }
 
@@ -110,7 +110,7 @@ public:
   {
     if (original_device_ != target_device_)
     {
-      CubDebug(cudaSetDevice(original_device_));
+      static_cast<void>(CubDebug(cudaSetDevice(original_device_)));
     }
   }
 };

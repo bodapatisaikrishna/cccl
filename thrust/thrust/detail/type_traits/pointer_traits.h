@@ -164,6 +164,7 @@ inline constexpr bool ref_can_compare_equal =
 template <typename FromPtr, typename ToPtr>
 inline constexpr bool ref_can_compare_less_than =
   is_pointer_system_convertible_v<FromPtr, ToPtr>
+  // NOLINTNEXTLINE(readability-redundant-typename)
   && ::cuda::std::__is_cpp17_less_than_comparable_v<typename FromPtr::value_type, typename ToPtr::value_type>;
 } // namespace detail
 THRUST_NAMESPACE_END
